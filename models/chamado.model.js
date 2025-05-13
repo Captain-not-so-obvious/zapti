@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Chamado.associate = (models) => {
         Chamado.belongsTo(models.Usuario, { foreignKey: "usuarioId", as: "solicitante" });
-        Chamado.belongsTo(models>Usuario, { foreignKey: "tecnicoId", as: "tecnico" });
+        Chamado.belongsTo(models.Usuario, { foreignKey: "tecnicoId", as: "tecnico" });
         Chamado.hasMany(models.Historico, { foreignKey: "chamadoId", as: "historico" });
     };
 
