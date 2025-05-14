@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: true,
         },
+        usuarioId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        tecnicoId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        }
     });
 
     Chamado.associate = (models) => {
