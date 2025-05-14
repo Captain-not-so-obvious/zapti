@@ -115,6 +115,3 @@ Sinta-se à vontade para abrir issues ou pull requests com melhorias, correçõe
 
 Este projeto é de uso **livre**. Você pode modificar e distribuir o código de acordo com suas necessidades.
 
----
-
-Esse é um exemplo básico. Caso precise de ajustes ou mais detalhes, só avisar!

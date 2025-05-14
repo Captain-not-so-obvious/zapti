@@ -57,7 +57,7 @@ const resolverChamado = async (req, res) => {
         await Historico.create({
             chamadoId: chamado.id,
             descricao: "Chamado resolvido",
-            autorId: req.usuario.Id,
+            autorId: req.usuario.id,
         });
 
         await enviarEmailChamadoResolvido(
@@ -73,7 +73,47 @@ const resolverChamado = async (req, res) => {
     }
 };
 
+const listarChamados = async (req, res) => {
+    const { usuarioId, status } = req.query; //Recebe parâmetros de consulta
+
+    try {
+        let chamados;
+        if (usuarioId) {
+            chamados = await Chamado.findAll({ where: { usuarioId } });
+        } else if (status) {
+            chamados = await Chamado.findAll({ where: { status } });
+        } else {
+            chamados = await Chamado.findAll(); // Caso nenhum filtro seja passado, lista todos
+        }
+
+        res.json(chamados);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao listar chamados', error });
+    }
+};
+
+const atribuirTecnico = async (req, res) => {
+    const { id } = req. params; // ID do chamado
+    const { tecnicoId } = req.body; // ID do técnico
+
+    try {
+        const chamado = await Chamado.findByPk(id);
+        if (!chamado) {
+            return res.status(404).json({ message: 'Chamado não encontrado' });
+        }
+
+        chamado.tecnicoId = tecnicoId;
+        await chamado.save();
+
+        res.json({ message: 'Técnico atribuído com sucesso' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao atribuir técnico', error });
+    }
+};
+
 module.exports = {
     criarChamado,
     resolverChamado,
+    listarChamados,
+    atribuirTecnico,
 };

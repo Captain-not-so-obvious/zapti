@@ -1,0 +1,5 @@
+1 - Listagem de chamados por usuário ou status
+2 - Atribuição de técnico ao chamado
+3 - Proteção com JWT nas rotas privadas
+4 - Painel administrativo usando gráficos (Chart.js)
+5 - Envio de email de confirmação ao criar e finalizar chamado

@@ -9,4 +9,9 @@ router.post("/", chamadoController.criarChamado);
 // Mas apenas usuários autenticados podem resolver um chamado
 router.put("/:id/resolver", authMiddleware, chamadoController.resolverChamado);
 
+// Rota que lista chamado por status ou técnico
+router.get("/listar", chamadoController.listarChamados);
+
+router.put("/atribuir-tecnico/:id", chamadoController.atribuirTecnico);
+
 module.exports = router;
