@@ -1,5 +1,6 @@
-1 - Listagem de chamados por usuário ou status
-2 - Atribuição de técnico ao chamado
-3 - Proteção com JWT nas rotas privadas
-4 - Painel administrativo usando gráficos (Chart.js)
-5 - Envio de email de confirmação ao criar e finalizar chamado
+1 - Listagem de chamados por usuário ou status (feito)
+2 - Atribuição de técnico ao chamado (feito)
+3 - Proteção com JWT nas rotas privadas (feito)
+4 - Criar formulário para abertura de chamado
+5 - Painel administrativo usando gráficos (Chart.js)
+6 - Envio de email de confirmação ao criar e finalizar chamado

@@ -92,6 +92,26 @@ const listarChamados = async (req, res) => {
     }
 };
 
+const listarChamadosPorUsuario = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const chamados = await Chamado.findAll({ where: { usuarioId: id } });
+        res.json(chamados);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao buscar chamados por usuário", error });
+    }
+};
+
+const listarChamadosPorStatus = async (req, res) => {
+    const { status } = req.params;
+    try {
+        const chamados = await Chamado.findAll({ where: { status } });
+        res.json(chamados);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao buscar chamados por status", error });
+    }
+};
+
 const atribuirTecnico = async (req, res) => {
     const { id } = req. params; // ID do chamado
     const { tecnicoId } = req.body; // ID do técnico
@@ -105,7 +125,7 @@ const atribuirTecnico = async (req, res) => {
         chamado.tecnicoId = tecnicoId;
         await chamado.save();
 
-        res.json({ message: 'Técnico atribuído com sucesso' });
+        res.json({ message: 'Técnico atribuído com sucesso', chamado });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao atribuir técnico', error });
     }
@@ -115,5 +135,7 @@ module.exports = {
     criarChamado,
     resolverChamado,
     listarChamados,
+    listarChamadosPorUsuario,
+    listarChamadosPorStatus,
     atribuirTecnico,
 };

@@ -19,5 +19,3 @@ const authMiddleware = (req, res, next) => {
 };
 
 module.exports = authMiddleware;
-
-// Parei no passo 3 onde cou configurar o JWT no meu middleware e levar ele pras minhas rotas depois

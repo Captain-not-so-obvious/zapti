@@ -4,6 +4,8 @@ const app = express();
 const db = require("./models/index");
 const { sequelize } = require("./models"); // Alterado para importar diretamente do models
 const chamadoRoutes = require("./routes/chamado.routes");
+const usuarioRoutes = require("./routes/usuario.routes")
+const historicoRoutes = require("./routes/historico.routes");
 
 // Middlewares
 app.use(express.json());
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use("/usuarios", require("./routes/usuario.routes"));
 app.use("/auth", require("./routes/auth.routes"));
 app.use("/chamados", chamadoRoutes);
+app.use("/historico", historicoRoutes);
 
 // Conecta e sincroniza o banco
 sequelize.authenticate()

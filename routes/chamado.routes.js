@@ -10,8 +10,10 @@ router.post("/", chamadoController.criarChamado);
 router.put("/:id/resolver", authMiddleware, chamadoController.resolverChamado);
 
 // Rota que lista chamado por status ou técnico
-router.get("/listar", chamadoController.listarChamados);
+router.get("/", authMiddleware, chamadoController.listarChamados);
+router.get("/usuario/:id", authMiddleware, chamadoController.listarChamadosPorUsuario);
+router.get("/status/:status", authMiddleware, chamadoController.listarChamadosPorStatus);
 
-router.put("/atribuir-tecnico/:id", chamadoController.atribuirTecnico);
+router.put("/:id/atribuir", authMiddleware, chamadoController.atribuirTecnico);
 
 module.exports = router;

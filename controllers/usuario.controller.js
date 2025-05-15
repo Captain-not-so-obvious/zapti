@@ -70,7 +70,20 @@ const login = async (req, res) => {
     }
 };
 
+const listarUsuarios = async (req, res) => {
+    try {
+        const usuarios = await Usuario.findAll({
+            attributes: ["id", "nome", "email", "tipo"] // evita retornar senha
+        });
+        res.json(usuarios);
+    } catch (error) {
+        console.error("Erro ao listar usuários", error);
+        res.status(500).json({ message: "Erro ao buscar usuários" });
+    }
+};
+
 module.exports = {
     criarUsuario,
     login,
+    listarUsuarios,
 };
