@@ -1,23 +1,18 @@
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false, // STARTTLS
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = process.env.BREVO_API_KEY;
 
-// Função para enviar e-mail de resolução de chamado
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
 const enviarEmailChamadoResolvido = async (destinatario, nomeSolicitante, tituloChamado) => {
-  const mailOptions = {
-    from: `"Suporte TI" <${process.env.SMTP_USER}>`,
-    to: destinatario,
+  const sendSmtpEmail = {
+    sender: { email: process.env.SENDER_EMAIL, name: 'Suporte TI' },
+    to: [{ email: destinatario }],
     subject: `Seu chamado foi resolvido: ${tituloChamado}`,
-    html: `
+    htmlContent: `
       <p>Olá ${nomeSolicitante},</p>
       <p>O chamado <strong>${tituloChamado}</strong> foi marcado como resolvido.</p>
       <p>Se o problema persistir, você pode abrir um novo chamado a qualquer momento.</p>
@@ -26,7 +21,14 @@ const enviarEmailChamadoResolvido = async (destinatario, nomeSolicitante, titulo
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log('E-mail enviado via API Brevo:', data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao enviar e-mail via API Brevo:', error);
+    throw error;
+  }
 };
 
 module.exports = { enviarEmailChamadoResolvido };
